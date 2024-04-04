@@ -17,7 +17,7 @@ namespace PlatformService.SyncDataServices.Http
             _configuration = configuration;
         }
 
-        public async Task SendDatatoCommandService(PlatformReadDto platformReadDto)
+        public async Task<HttpResponseMessage> SendDatatoCommandService(PlatformReadDto platformReadDto)
         {
             var handler = new HttpClientHandler();
             handler.ClientCertificateOptions = ClientCertificateOption.Manual;
@@ -34,10 +34,7 @@ namespace PlatformService.SyncDataServices.Http
             );
             Console.WriteLine($"Sending request to commands service: {httpContent.ToString()}");
             var response = await testhttp.PostAsync($"{_configuration["CommandService"]}", httpContent);
-            if(response.IsSuccessStatusCode){
-                Console.WriteLine("--> Command Service returned 200 OK!");
-                throw new Exception("Success");
-            }
+            return response;
         }
     }
 }

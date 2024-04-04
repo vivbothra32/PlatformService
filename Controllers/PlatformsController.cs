@@ -54,18 +54,18 @@ namespace PlatformService.Controllers
 
             //Send Sync Message
             try{
-                Console.WriteLine($"Calling Commands Service...");
-                await _commandDataClient.SendDatatoCommandService(platformReadDto);
-            }
-            catch(Exception ex){
-                if(ex.Message == "Success"){
-                    Console.WriteLine($"Command Service call success: {ex.Message}");
-                    return CreatedAtRoute(nameof(GetPlatformById), new {Id = platformReadDto.Id}, platformReadDto);       
+                Console.WriteLine($"--> Calling Commands Service...");
+                var response = await _commandDataClient.SendDatatoCommandService(platformReadDto);
+                if(response.IsSuccessStatusCode)
+                {
+                    Console.WriteLine($"--> Command Service synchronous call success!");
                 }
                 else{
-                    Console.WriteLine($"Command Service call failed: {ex.Message}");
-                    return null;
-                }            
+                    Console.WriteLine($"--> Command Service synchronous call failed!");
+                } 
+            }
+            catch(Exception ex){
+                Console.WriteLine($"Synchronous call to commands service failed: {ex.Message}");
             }
 
             //Send Async Message
@@ -78,7 +78,7 @@ namespace PlatformService.Controllers
             catch(Exception ex){
                 Console.WriteLine("--> Could not send message asynchronously!");
             }
-            return null;
+            return CreatedAtRoute(nameof(GetPlatformById), new {Id = platformReadDto.Id}, platformReadDto);       
         }
     }    
 }
