@@ -8,10 +8,14 @@ Major implementations achieved using this project:
 2. Asynchronous communication - using RabbitMQ Message Bus.
 3. Database - MSSQL Server 2020.
 4. Containerization of the microservices - using Docker.
-6. Container orchestration - using Kubernetes.
+5. Container orchestration - using Kubernetes.
+
      a. Services deployment.
+
      b. MSSQL server with Persistent Volume Storage
+
      c. RabbitMQ - publisher/subscriber model with FanOut exchange implementation.
+
      d. Ingress-Nginx controller - routing requests to the different services.
 
 Link to the DockerHub repository - [here](https://hub.docker.com/repositories/vivbothra32).
